@@ -1,7 +1,9 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const dotenv = require('dotenv').config();
+const cors = require('cors');
+
 const db = require('./models');
-const dotenv = require('dotenv').config()
 const userRoutes = require ('./routes/user-routes');
 
 const PORT = process.env.PORT || 8080;
@@ -18,8 +20,16 @@ db.sequelize.sync({ force: false }).then(() => {
     console.log("db has been re sync");
 });
 
+app.use(
+    cors({
+        origin: "http://localhost:5173", // or "*" to allow all origins, though not recommended for production
+        methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
+        credentials: true // Enable cookies if needed
+    })
+);
+
 //routes for the user API
-app.use('/api/users', userRoutes);
+app.use('/users', userRoutes);
 
 app.listen(PORT, () => console.log(`Server is connected on ${PORT}`));
 
