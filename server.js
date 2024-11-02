@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const db = require('./models');
+const dotenv = require('dotenv').config()
 const userRoutes = require ('./routes/user-routes');
 
 const PORT = process.env.PORT || 8080;

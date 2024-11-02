@@ -1,4 +1,5 @@
 const {Sequelize, DataTypes} = require('sequelize')
+const dotenv = require('dotenv').config();
 
 //Database connection with dialect of postgres specifying the database we are using
 //port for my database is 5432
