@@ -101,9 +101,25 @@ const logout = (req, res) => {
     }
 };
 
+const verifyToken = (req, res) => {
+    const token = req.cookies.jwt; // Assume jwtToken is the cookie name
+    if (!token) {
+        return res.status(401).json({ message: "No token found" });
+    }
+
+    try {
+        const userData = jwt.verify(token, process.env.SECRET_KEY);
+        res.json({ data: userData });
+    } catch (err) {
+        res.status(403).json({ message: "Invalid or expired token" });
+    }
+
+}
+
 
 module.exports = {
     signup,
     login,
-    logout
+    logout,
+    verifyToken
 };
